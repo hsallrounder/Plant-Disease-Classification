@@ -1,0 +1,79 @@
+/* Reset some default styles */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+/* Style for the page header */
+h1 {
+    background-color: #FFBF00; /* Change the background color to #FFBF00 */
+    color: #000000;
+    padding: 20px;
+    margin: 0;
+}
+
+
+/* Style for the image container */
+#image-container {
+    position: relative;
+    display: inline-block;
+    width: 100%; /* Take full width of the parent */
+    height: 100%; /* Take full height of the parent */
+}
+
+/* Style for the drag-and-drop text */
+#drag-drop-text {
+    position: absolute;
+    width: 100%;
+    top: 10px; /* Adjust as needed */
+    left: 0;
+    z-index: 10; /* Ensure it's above the image */
+    pointer-events: none; /* Make it non-interactive */
+    font-weight: bold; /* Make text bold */
+    font-size: 1.5em; /* Increase the font size */
+    color: #333; /* Darker text color for contrast */
+    text-shadow: 1px 1px 2px rgba(255,255,255,0.7); /* Subtle text shadow for readability */
+    background: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+    padding: 5px 0; /* Some padding */
+    border-radius: 5px; /* Rounded corners */
+}
+
+/* Style for the drag-and-drop area */
+.upload-box {
+    border: 2px dashed #FFBF00; /* Change the border color to #FFBF00 */
+    border-radius: 10px;
+    width: 300px;
+    height: 300px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    margin: 20px auto;
+    position: relative;
+    overflow: hidden;
+}
+
+
+/* Style for the image preview */
+#preview-image {
+    max-width: 100%;
+    max-height: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Style for the prediction results */
+#prediction {
+    margin: 20px auto;
+    padding: 10px;
+    border: 1px solid #FFBF00; /* Change the border color to #FFBF00 */
+    border-radius: 10px;
+    width: fit-content;
+    display: inline-block;
+    background-color: #FFBF00; /* Change the initial background color to #FFBF00 */
+    color: #fff; /* White text color */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
