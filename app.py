@@ -4,7 +4,6 @@ from tensorflow.keras.preprocessing import image
 import tensorflow as tf
 import numpy as np
 import os
-import gunicorn
 
 app = Flask(__name__)
 
@@ -70,5 +69,5 @@ def refresh():
     print(f"Error: {str(e)}")
     return jsonify({'error': str(e)}), 500
 
-# if __name__ == '__main__':
-#   app.run(debug=True)
+if __name__ == '__main__':
+  app.run(debug=True)
