@@ -1,7 +1,5 @@
 tensorflow
 matplotlib
 numpy
-shutil
 Flask
 Gunicorn
-os

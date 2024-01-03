@@ -4,7 +4,7 @@ from tensorflow.keras.preprocessing import image
 import tensorflow as tf
 import numpy as np
 import os
-import shutil
+import gunicorn
 
 app = Flask(__name__)
 
@@ -54,12 +54,17 @@ def predict_plant():
     print(f"Error: {str(e)}")
     return jsonify({'error': str(e)}), 500
 
-# Fix for refresh button: safely remove the "uploads" directory
 @app.route('/refresh', methods=['GET'])
 def refresh():
   try:
     if os.path.exists('uploads'):
-        shutil.rmtree('uploads')
+      for root, dirs, files in os.walk('uploads', topdown=False):
+        for name in files:
+          os.remove(os.path.join(root, name))
+        for name in dirs:
+          os.rmdir(os.path.join(root, name))
+      os.rmdir('uploads')
+      
     return render_template('index.html')
   except Exception as e:
     print(f"Error: {str(e)}")
