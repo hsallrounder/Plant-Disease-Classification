@@ -8,7 +8,7 @@ import os
 app = Flask(__name__)
 
 # Load the "plant.keras" model from the same directory as app.py
-model = load_model('plant_model.keras')
+model = tf.keras.models.load_model('plant_model.keras')
 class_names = ['Cherry___Powdery_mildew',
  'Cherry___healthy',
  'Peach___Bacterial_spot',
