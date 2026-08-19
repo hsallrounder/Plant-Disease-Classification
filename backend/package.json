@@ -1,0 +1,25 @@
+{
+  "name": "smartcrop-backend",
+  "version": "1.0.0",
+  "description": "Node.js & Express API Gateway for SmartCrop AI Plant Disease Classification",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js"
+  },
+  "keywords": ["smartcrop", "plant-disease", "express", "node", "mern"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.7.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "form-data": "^4.0.0",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.3"
+  }
+}

@@ -1,0 +1,31 @@
+# ==========================================
+# Backend (Node.js)
+# ==========================================
+backend/node_modules/
+backend/.env
+!backend/.env.example
+
+# ==========================================
+# Frontend (React + Vite)
+# ==========================================
+frontend/node_modules/
+frontend/dist/
+frontend/.env
+!frontend/.env.example
+
+# ==========================================
+# ML Service (FastAPI + Python)
+# ==========================================
+ml-service/venv/
+ml-service/.venv/
+ml-service/__pycache__/
+ml-service/.env
+!ml-service/.env.example
+
+# ==========================================
+# Global / General
+# ==========================================
+**/__pycache__/
+**/.ipynb_checkpoints/
+.DS_Store
+Thumbs.db
