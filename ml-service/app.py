@@ -2,6 +2,11 @@ import os
 import io
 import logging
 from contextlib import asynccontextmanager
+
+# Suppress verbose TensorFlow C++ logging
+os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
+os.environ["TF_ENABLE_ONEDNN_OPTS"] = "0"
+
 from fastapi import FastAPI, File, UploadFile, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
