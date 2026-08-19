@@ -2,7 +2,7 @@ const axios = require('axios');
 const FormData = require('form-data');
 const { REMEDIES_DATABASE, getRemedyDetails } = require('../data/remedies');
 
-const ML_SERVICE_URL = process.env.ML_SERVICE_URL || 'http://localhost:5001';
+const ML_SERVICE_URL = (process.env.ML_SERVICE_URL || 'http://localhost:5001').replace(/\/+$/, '');
 
 /**
  * Controller to handle plant disease prediction

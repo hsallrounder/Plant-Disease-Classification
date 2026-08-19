@@ -1,6 +1,20 @@
 import axios from 'axios';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || '/api';
+// Universal environment variable lookup (works across Node, Vite, Webpack, CRA, and Browser)
+const getApiBaseUrl = () => {
+  if (typeof window !== 'undefined' && window.__API_URL__) {
+    return window.__API_URL__;
+  }
+  if (typeof process !== 'undefined' && process.env) {
+    if (process.env.VITE_API_URL) return process.env.VITE_API_URL;
+    if (process.env.REACT_APP_API_URL) return process.env.REACT_APP_API_URL;
+    if (process.env.API_URL) return process.env.API_URL;
+  }
+  return '/api';
+};
+
+const rawApiUrl = getApiBaseUrl();
+const API_BASE_URL = rawApiUrl.replace(/\/+$/, '');
 
 const api = axios.create({
   baseURL: API_BASE_URL,

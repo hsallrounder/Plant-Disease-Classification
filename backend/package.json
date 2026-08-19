@@ -7,7 +7,14 @@
     "start": "node src/index.js",
     "dev": "nodemon src/index.js"
   },
-  "keywords": ["smartcrop", "plant-disease", "express", "node", "mern"],
+  "keywords": [
+    "smartcrop",
+    "plant-disease",
+    "express",
+    "node",
+    "backend",
+    "api"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
