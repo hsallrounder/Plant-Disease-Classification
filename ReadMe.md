@@ -45,40 +45,42 @@ Plant-Disease-Classification/
 
 ---
 
-## ⚡ Lightweight Model Optimization (Edge & Cloud Ready)
+## ⚡ Lightweight Model Optimization Across All AI/ML Architectures
 
-### 1. Can we convert any model to a lightweight format?
-**Yes!** Deep learning models from TensorFlow/Keras or PyTorch can be converted into ultra-compact formats like **TensorFlow Lite (`.tflite`)** or **ONNX (`.onnx`)**:
-- **RAM Footprint**: Reduced from **~600MB+ down to < 45MB** (94% reduction).
-- **Model Size**: Reduced from **~55MB down to 15.9MB** (or down to ~4MB with INT8 quantization).
-- **Zero Exit Code 137 OOM**: Guarantees stable operation on free-tier 512MB RAM instances (Render, Fly.io, AWS Lambda).
+| Model Category | Frameworks | Lightweight Format | Lightweight Runtime | RAM Usage |
+| :--- | :--- | :--- | :--- | :--- |
+| **Computer Vision (CNN / ViT)** | TensorFlow, PyTorch, YOLO | **TFLite (`.tflite`)** / **ONNX** | `ai-edge-litert` / `onnxruntime` | **~35 - 45 MB** |
+| **Graph Neural Networks (GNN)** | PyG, DGL, Spektral | **TorchScript (`.pt`)** / **ONNX** | `torchscript` / `onnxruntime` | **~40 - 70 MB** |
+| **NLP & Transformers** | Hugging Face, BERT | **ONNX (`.onnx`)** | `onnxruntime` / `optimum` | **~60 - 90 MB** |
+| **LLMs (LLaMA, Mistral, Phi)** | Hugging Face, PyTorch | **GGUF (`.gguf`)** | `llama-cpp-python` | **CPU/RAM Friendly** |
+| **Classical ML / Tabular** | Scikit-Learn, XGBoost | **ONNX** / **Treelite (C/C++)** | `onnxruntime` / native binary | **~15 - 30 MB** |
 
-### 2. How to convert an existing model:
-```python
-import tensorflow as tf
+---
 
-converter = tf.lite.TFLiteConverter.from_saved_model("plant_model")
-tflite_model = converter.convert()
+### Deploying Graph Neural Networks (GNN) to Low-Memory Environments
 
-with open("plant_model/model.tflite", "wb") as f:
-    f.write(tflite_model)
-```
+If deploying a **Graph Neural Network** (e.g. PyG / DGL) for agricultural disease spread networks, molecular prediction, or graph classification:
 
-### 3. Can we directly save our model to lightweight during training?
-**Yes!** In your Jupyter Notebook or training script, export `.tflite` immediately after `model.fit()`:
-```python
-import tensorflow as tf
+1. **Avoid running `torch_geometric` on production servers**: PyG needs heavy CUDA/C++ extension wheels (`torch_scatter`, `torch_sparse`) that consume >1.2 GB disk and >800MB RAM.
+2. **Export to TorchScript JIT**:
+   ```python
+   import torch
+   scripted_gnn = torch.jit.trace(model, (dummy_node_features, dummy_edge_index))
+   scripted_gnn.save("gnn_model.pt")
+   ```
+3. **Or Export to ONNX (< 40MB RAM in production)**:
+   ```python
+   torch.onnx.export(
+       model,
+       (dummy_node_features, dummy_edge_index),
+       "gnn_model.onnx",
+       input_names=["node_features", "edge_index"],
+       output_names=["predictions"],
+       dynamic_axes={"node_features": {0: "num_nodes"}, "edge_index": {1: "num_edges"}}
+   )
+   ```
 
-# After model training:
-# model.fit(...)
-
-# Directly export to TFLite:
-converter = tf.lite.TFLiteConverter.from_keras_model(model)
-tflite_model = converter.convert()
-
-with open("model.tflite", "wb") as f:
-    f.write(tflite_model)
-```
+*For complete code samples and instructions for every model architecture, refer to [ml-service/README.md](file:///c:/Users/raadh/OneDrive/Desktop/smartcrop%20ai/Plant-Disease-Classification/ml-service/README.md).*
 
 ---
 
