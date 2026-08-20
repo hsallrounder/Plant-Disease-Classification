@@ -7,9 +7,17 @@ const predictRoutes = require('./routes/predict.routes');
 const app = express();
 const PORT = process.env.PORT || 8080;
 
-// Middleware
+// Middleware - Flexible CORS for Sandbox Pro and local dev
+const clientOrigin = process.env.CLIENT_URL;
+let corsOrigin = '*';
+if (clientOrigin && clientOrigin !== '*') {
+  corsOrigin = clientOrigin.includes(',')
+    ? clientOrigin.split(',').map((url) => url.trim())
+    : clientOrigin;
+}
+
 app.use(cors({
-  origin: process.env.CLIENT_URL || '*',
+  origin: corsOrigin,
   methods: ['GET', 'POST', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
